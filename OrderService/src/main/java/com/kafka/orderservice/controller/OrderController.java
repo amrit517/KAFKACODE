@@ -1,6 +1,5 @@
 package com.kafka.orderservice.controller;
 
-import org.apache.logging.log4j.message.StructuredDataId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,35 +13,25 @@ import com.kafka.orderservice.service.OrderProducerService;
 @RestController
 @RequestMapping("/kafka")
 public class OrderController {
-	
+
 	@Autowired
 	private OrderProducerService orderProducerService;
 
 	public void setOrderProducerService(OrderProducerService orderProducerService) {
 		this.orderProducerService = orderProducerService;
 	}
-	
-	
+
 	@PostMapping("/orderPublish")
-	public String placeOrder( @RequestBody Order order) {
-		
-		OrderEvent  event = OrderEvent.builder()
-				
+	public String placeOrder(@RequestBody Order order) {
+
+		OrderEvent event = OrderEvent.builder()
+				.order(order).status("Pending").message("Order is in pending Stage")
 				.build();
-				
-		event.
-		
-		
+
 		orderProducerService.sendMessage(event);
-		
+
 		return "Order Placed Successfully";
-		
+
 	}
-	
-	
-	
-	
-	
-	
 
 }

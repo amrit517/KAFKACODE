@@ -3,6 +3,7 @@ package com.kafka.orderservice.service;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
@@ -16,8 +17,10 @@ public class OrderProducerService {
 
 	private static final Logger log = LoggerFactory.getLogger(OrderProducerService.class);
 
+	@Autowired
 	private NewTopic newTopic;
 
+	@Autowired
 	private KafkaTemplate<String, OrderEvent> kafkaTemplate;
 
 	public OrderProducerService(NewTopic newTopic, KafkaTemplate<String, OrderEvent> kafkaTemplate) {
@@ -25,13 +28,18 @@ public class OrderProducerService {
 		this.newTopic = newTopic;
 		this.kafkaTemplate = kafkaTemplate;
 	}
-	
-	
+
+	public void setNewTopic(NewTopic newTopic) {
+		this.newTopic = newTopic;
+	}
+
+	public void setKafkaTemplate(KafkaTemplate<String, OrderEvent> kafkaTemplate) {
+		this.kafkaTemplate = kafkaTemplate;
+	}
 
 	public OrderProducerService() {
 		super();
 	}
-
 
 	public void sendMessage(OrderEvent event) {
 		log.info(String.format("Order Event -> %s", event.toString()));

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
-
 import com.kafka.orderservice.service.OrderProducerService;
 
 @Configuration
@@ -21,7 +20,7 @@ public class kafkaConfiguration {
 //				.partitions(3)
 				.build();
 	}
-	
+
 	@Bean
 	public OrderProducerService getOrderProducerService() {
 		return new OrderProducerService();
